@@ -1,0 +1,3 @@
+# stag
+User-agent: *
+Disallow: /

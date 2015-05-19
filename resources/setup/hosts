@@ -1,0 +1,9 @@
+# [%project_name%]
+127.0.0.1       localhost.dev.%project_name%.com
+127.0.0.1       localhost.benchmark.%project_name%.com
+127.0.0.1       localhost.test.%project_name%.com
+127.0.0.1       localhost.behat.%project_name%.com
+127.0.0.1       localhost.stag.%project_name%.com
+127.0.0.1       localhost.acc.%project_name%.com
+127.0.0.1       localhost.prod.%project_name%.com
+# ================================================

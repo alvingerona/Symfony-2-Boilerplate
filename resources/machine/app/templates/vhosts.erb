@@ -1,0 +1,35 @@
+#HTTP
+<VirtualHost *:80>
+    ServerAlias     *
+
+    RewriteEngine   On
+    RewriteCond     %{HTTPS} off
+    RewriteRule     (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+# HTTPS
+<% node['app']['environments'].each do |env| %>
+
+    <VirtualHost *:443>
+        AccessFileName  .htaccess_<%= env %>
+
+        ServerName      localhost.<%= env %>.<%= node['app']['domain'] %>
+        ServerAlias     *.localhost.<%= env %>.<%= node['app']['domain'] %>
+
+        Alias           /sf <%= node['app']['root_dir'] %>/lib/vendor/symfony/data/web/sf
+
+        DocumentRoot    <%= node['app']['root_dir'] %>/web
+
+        <Directory "<%= node['app']['root_dir'] %>/web">
+            Options FollowSymLinks
+            AllowOverride All
+            Allow from All
+        </Directory>
+
+        SSLEngine on
+        SSLCertificateFile      <%= node['app']['cert_dir'] %>/server.crt
+        SSLCertificateKeyFile   <%= node['app']['cert_dir'] %>/server.key
+    </VirtualHost>
+
+<% end %>
+

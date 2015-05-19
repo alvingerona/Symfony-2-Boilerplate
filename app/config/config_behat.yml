@@ -1,0 +1,39 @@
+imports:
+    - { resource: config.yml }
+
+parameters:
+    spool_path: "%kernel.root_dir%/spool/behat"
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery:  false
+    delivery_address: "%mailer_dev_email%"
+    spool:
+        type: file
+        path: %spool_path%
+
+propel:
+    database:
+        connections:
+            default:
+                adapter:    %database_driver%
+                user:       %database_user%
+                password:   %database_password%
+                dsn:        %database_driver%:host=%database_host%;dbname=%test_database_name%;charset=UTF8
+youwe_behat:
+    url: "[PROJECT URL]"
+    spool_dir: %spool_path%
+    report_name: "[PROJECT] Behat Report"
+    mailto: "symfony_amsterdam@youwe.nl"
+    acl: false
+    orm: propel

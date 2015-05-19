@@ -1,0 +1,3 @@
+# behat
+User-agent: *
+Disallow: /

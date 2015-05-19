@@ -1,0 +1,47 @@
+##################################################################################
+# Project URL under mink extension should be set to the test url of the project! #
+##################################################################################
+#
+# behat.yml
+
+default:
+    suites:
+        default:
+            type: symfony_bundle
+            bundle: GenericBehatBundle
+            paths: [ %paths.base%/../src/ ]
+            contexts:
+                - Generic\BehatBundle\Context\ProjectFunctionContext
+
+    formatters:
+        html:
+            output_path: %paths.base%/../resources/report
+        progress: true
+        pretty:
+            paths: false
+
+    extensions:
+        Youwe\Bundle\BehatBundle\YouweBehatExtension:
+            name: html
+        Behat\Symfony2Extension:
+            kernel:
+                env: behat
+                debug: true
+                path: ../app/AppKernel.php
+        Behat\MinkExtension:
+            base_url: #PROJECT URL
+            sessions:
+                default:
+                    symfony2: ~
+                javascript:
+                    selenium2:
+                        browser: chrome
+                        wd-host: http://selenium.hub:4444/wd/hub
+                nonjavascript:
+                    goutte:
+                        guzzle_parameters:
+                            ssl.certificate_authority: system
+                            curl.options:
+                                CURLOPT_SSL_VERIFYPEER: 0
+                                CURLOPT_CERTINFO: 0
+                                CURLOPT_SSL_VERIFYHOST: 0
